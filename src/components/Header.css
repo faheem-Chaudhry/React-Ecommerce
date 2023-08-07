@@ -1,0 +1,36 @@
+.header-container {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-container h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .header-container nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .header-container nav ul li {
+    margin: 0;
+  }
+  
+  .header-container nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .header-container nav ul li a:hover {
+    background-color: #fff;
+    color: #007bff;
+  }
+  
