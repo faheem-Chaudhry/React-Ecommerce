@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import AddProduct from "./AddProduct";
 import UpdateProduct from "./UpdateProduct";
+import { Outlet, useNavigate, } from "react-router-dom";
 
 const Products = (props) => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [cateButton, setcateButton] = useState(false);
@@ -17,7 +19,7 @@ const Products = (props) => {
   const [isdelete, setIsDelete] = useState(false);
   const [sureDelete, setSureDelete] = useState(false);
   const [sureDelete2, setSureDelete2] = useState(false);
-  const [deleteId, setDeleteId] = useState('')
+  const [deleteId, setDeleteId] = useState('');
   useEffect(() => {
     async function fetchDataCategories() {
       setIsDelete(false);
@@ -60,6 +62,7 @@ const Products = (props) => {
   }, [cateButton, updateCategories, isdelete]);
   const addCategoriesHandler = () => {
     setcateButton(true);
+    navigate('add')
   };
   const handleDelete = (catId) => {
     setSureDelete(true);
@@ -87,7 +90,8 @@ const Products = (props) => {
       image: image,
       category: category,
     });
-    setupdateCategories(true);
+   // setupdateCategories(true);
+    navigate(`update/${id}`)
   };
 
   const handleChange = (event) => {
@@ -141,6 +145,7 @@ const Products = (props) => {
   };
   return (
     <React.Fragment>
+      <h2>Products list</h2>
          {sureDelete && (
                   <div>
                     <p>Are you sure to want to delete</p>
@@ -211,6 +216,7 @@ const Products = (props) => {
           updateState={setupdateCategories}
         />
       )}
+      <Outlet/>
     </React.Fragment>
   );
 };

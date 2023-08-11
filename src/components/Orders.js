@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import OrderDetail from "./OrderDetail";
+import { useNavigate } from "react-router-dom";
 
 const Orders = (props) => {
+  const navigate = useNavigate();
   const [order, setOrder] = useState([]);
   const [detailId, setDetailId] = useState("");
   const [hideDetail, setHideDetail] = useState("");
@@ -32,6 +35,7 @@ const Orders = (props) => {
   console.log("order details", order.details);
 
   const detailsHandler = (Id) => {
+    navigate(`detail/${Id}`)
     console.log("detailid", detailId);
     console.log("hideid", hideDetail);
     if (Id === hideDetail) {

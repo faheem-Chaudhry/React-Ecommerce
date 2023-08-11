@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CartContext from '../store/cart-context';
 
 const LoginPage = (props) => {
+  const cartCtx = useContext(CartContext);
+  const navigate = useNavigate();
   // let email;
   // let pass;
   // useEffect(() => {
@@ -49,7 +53,11 @@ const LoginPage = (props) => {
       console.log('Password from server:', pass);
       if (email === username && pass === password) {
         console.log('ok');
-        props.setIsLogin(false);
+        //props.setIsLogin(false);
+        cartCtx.setAdminLogin(true);
+        localStorage.setItem('admin',JSON.stringify(true))
+        console.log(localStorage)
+        navigate('/admin')
       }
       else {
         console.log('not ok');
@@ -62,6 +70,7 @@ const LoginPage = (props) => {
 
   };
   const loginHandler = () =>{
+    navigate('/login')
     props.adminLogin(false)
   }
 

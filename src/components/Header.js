@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useContext} from 'react';
 import './Header.css';
+import { useNavigate } from 'react-router-dom';
+import CartContext from '../store/cart-context';
 
 const Header = (props) => {
+  const cartCtx = useContext(CartContext)
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   useEffect(() => {
 
@@ -23,25 +27,30 @@ const Header = (props) => {
     fetchData()
   }, [])
   const onClickHandlerSignout = () => {
-    props.setIsLogin(true)
+    if(cartCtx.email !== '')
+    {
+      cartCtx.addEmail('');
+    }
+   navigate('/login')
   }
-  const onClickHandlerCat = () => {
-    props.setCategories(true);
-    props.setProducts(false);
-    props.setOrders(false)
-  }
-  const onClickHandlerProds = () => {
-    props.setProducts(true);
-    props.setCategories(false);
-    props.setOrders(false)
-  }
-  const onClickHandlerOrders = () => {
-    props.setOrders(true)
-    props.setProducts(false);
-    props.setCategories(false);
-  }
+  // const onClickHandlerCat = () => {
+  //   props.setCategories(true);
+  //   props.setProducts(false);
+  //   props.setOrders(false)
+  // }
+  // const onClickHandlerProds = () => {
+  //   props.setProducts(true);
+  //   props.setCategories(false);
+  //   props.setOrders(false)
+  // }
+  // const onClickHandlerOrders = () => {
+  //   props.setOrders(true)
+  //   props.setProducts(false);
+  //   props.setCategories(false);
+  // }
   const handleCart= () => {
-    props.showCart(true);
+    navigate('cart')
+   // props.showCart(true);
   }
   return (
     <header className="header-container">
@@ -56,18 +65,16 @@ const Header = (props) => {
                 // <li>{cat.id}   {cat.name}</li>
               )
             })
-          } <button onClick={handleCart}>{props.cartCount}.  Cart</button>
-          <button onClick={onClickHandlerSignout}>{props.fromLogin?'sign out' : 'sign in'}</button>
-        </ul>}
-        {props.checkAdmin && <ul>
+          } <button onClick={handleCart}>{cartCtx.cartCount}.  Cart</button>
+           <button onClick={onClickHandlerSignout}>{cartCtx.email?'sign out' : 'sign in'}</button>
+         </ul>}
+        {/* {props.checkAdmin && <ul>
           <button onClick={onClickHandlerCat}>Categories</button>
           <button onClick={onClickHandlerProds}>Products</button>
           <button onClick={onClickHandlerOrders}>Orders</button>
           <button onClick={onClickHandlerSignout}>Sign out</button>
-          {/* <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li> */}
-        </ul>}
+         
+        </ul>}  */}
       </nav>
     </header>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddCategories = (props) => {
+    const navigate = useNavigate();
     // const [id, setId] = useState('');
     const [Name, setName] = useState('');
     const handleInputChange = (event) => {
@@ -21,11 +23,13 @@ const AddCategories = (props) => {
             body: JSON.stringify(Name),
           }).then(()=>{
             setName('');
-            props.setCatButton(false);
+            navigate(-1)
+          //  props.setCatButton(false);
           })
     }
     return (
         <React.Fragment>
+            <h2>Add category</h2>
             <form onSubmit={handleSubmit}>
                 {/* <div>
                     <label htmlFor="id">Username:</label>

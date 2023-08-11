@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import CartContext from "../store/cart-context";
+import { useNavigate, Link } from "react-router-dom";
 const Login = (props) => {
+  const navigate = useNavigate();
   const cartCtx = useContext(CartContext)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +30,14 @@ const Login = (props) => {
           console.log('ok');
           props.setIsLogin(false);
           props.setFromLogin(true);
-          cartCtx.addEmail(username)
+          cartCtx.addEmail(username);
+          if(cartCtx.items.length === 0){
+            navigate('/')
+          }
+          else{
+            navigate('/cart')
+          }
+          
         }
 
       }
@@ -40,16 +49,7 @@ const Login = (props) => {
     fetchData().then(() => {
       console.log('Username:', username);
       console.log('Password:', password);
-      // console.log('email from server:', email);
-      // console.log('Password from server:', pass);
-      // if (email === username && pass === password) {
-      //   console.log('ok');
-      //   props.setIsLogin(true);
-      // }
-      // else {
-      //   console.log('not ok');
-      //   // props.setIsLogin(false);
-      // }
+     
       setUsername('');
       setPassword('');
     })
@@ -57,15 +57,14 @@ const Login = (props) => {
 
   };
   const handleChange = () => {
+    navigate('/admin-login')
     props.setAdminLogin(true);
   }
   const signUpHandler = () =>{
+    navigate('/signup')
     props.isSignUp(true);
   }
-  const onClickHomeHandler = () => {
-    props.setIsLogin(false);
-    //props.setFromLogin(true);
-  }
+  
   return (
     <div>
       <h2>Login</h2>
@@ -103,7 +102,7 @@ const Login = (props) => {
           <button onClick={signUpHandler}>SignUp</button>
         </div>
       </form>
-      <h2 onClick={onClickHomeHandler}>Go to Home</h2>
+      <Link to='/'>Go to Home</Link>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import AddCategories from "./AddCategories";
 import UpdateCategory from "./UpdateCategory";
+import { Outlet, useNavigate, } from "react-router-dom";
 
 const Categories = (props) => {
+    const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [cateButton, setcateButton] = useState(false)
      const [updateCategories, setupdateCategories] = useState(false)
@@ -31,6 +33,7 @@ const Categories = (props) => {
     }, [cateButton,updateCategories, isdelete])
     const addCategoriesHandler = () => {
         setcateButton(true)
+        navigate('add')
     }
     const handleDelete = (catId) => {
         setSureDelete(true);
@@ -50,7 +53,8 @@ const Categories = (props) => {
     const handleUpdate = (id, name) => {
         console.log('update',id,name)
         setUpdateItem({id:id,name:name})
-        setupdateCategories(true)
+        navigate(`update/${id}`)
+      //  setupdateCategories(true)
     //    return ( updateCategories && <UpdateCategory catId={id} catName={name} /> )
     }
     const sureDeleteHandler = () => {
@@ -71,6 +75,7 @@ const Categories = (props) => {
       };
     return (
         <React.Fragment>
+            <h2>Categories list</h2>
             {sureDelete && (
                   <div>
                     <p>Are you sure to want to delete</p>

@@ -75,7 +75,8 @@ const Home = (props) => {
         fetchData().then(()=>{setIsLoading(false)})
     }
     const cartHandler = (id, name, price, image) => {
-        setCartCount(cartCount = cartCount + 1)
+       // setCartCount(cartCount = cartCount + 1)
+        cartCtx.updateCartCount();
         console.log('carthandler', id)
         console.log(quantity)
         // const enteredAmount = amountInputRef.current.value;
@@ -106,7 +107,7 @@ const Home = (props) => {
                 fromLogin={props.fromLogin}
                 showCart={setShowCart}
             />
-            {isLoading?<p>Loading...</p> : (((showCart || props.checkCartToLogin) && <Cart showCart={setShowCart}
+            {/* {isLoading?<p>Loading...</p> : (((showCart || props.checkCartToLogin) && <Cart showCart={setShowCart}
                 setCartCount= {setCartCount}
                 setNotSignIn={setNotSignIn}
                 cartToLogin={props.cartToLogin}
@@ -120,7 +121,7 @@ const Home = (props) => {
             {notSignIn && <ShowNotSignIn setNotSignIn={setNotSignIn}
                 setIsLogin={props.setIsLogin}
                 cartToLogin={props.cartToLogin}
-                setShowCart={setShowCart} />}
+                setShowCart={setShowCart} />} */}
             <table>
                 {!props.checkCartToLogin && !props.checkAdmin && !notSignIn && !showCart && <tr>
                     <th>Name</th>

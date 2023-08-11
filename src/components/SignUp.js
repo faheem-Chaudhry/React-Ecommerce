@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = (props) => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -30,6 +32,7 @@ const SignUp = (props) => {
             setUsername('');
             setPassword('');
             props.isSignUp(false);
+            navigate('/login')
            
         })
 
@@ -40,7 +43,8 @@ const SignUp = (props) => {
         props.setAdminLogin(true);
     }
     const loginHandler = () => {
-        props.isSignUp(false)
+        props.isSignUp(false);
+        navigate('/login')
     }
     return (
         <div>

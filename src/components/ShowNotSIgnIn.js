@@ -1,11 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShowNotSignIn = (props) => {
+    const navigate = useNavigate()
+
     const handleSignIn = () => {
-        props.setNotSignIn(false);
-        props.setIsLogin(true)
-        props.cartToLogin(true);
-        props.setShowCart(true);
+        navigate('/login')
+        // props.setNotSignIn(false);
+        // props.setIsLogin(true)
+        // props.cartToLogin(true);
+        // props.setShowCart(true);
     }
     return (
         <React.Fragment>

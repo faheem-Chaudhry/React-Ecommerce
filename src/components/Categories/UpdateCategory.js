@@ -1,10 +1,28 @@
 import React, {useEffect, useState} from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateCategory = (props) =>{
+    const navigate = useNavigate();
+    const {cate_id} = useParams();
     const [Name, setName] = useState('');
     useEffect(()=>{
-        console.log(props.catName,props.catId)
-        setName(props.catName)
+        async function fetchData() {
+            const response = await fetch(
+              "https://react-http-8f78d-default-rtdb.firebaseio.com/ecommerce/categories.json"
+            );
+            const data = await response.json();
+            
+            
+            for (const key in data) {
+              if (key === cate_id) {
+                setName(data[key])
+              }
+            }
+            
+          }
+          fetchData();
+        //console.log(props.catName,props.catId)
+        //setName(props.catName)
     },[])
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -16,7 +34,7 @@ const UpdateCategory = (props) =>{
     };
     const handleSubmit = (event) =>{
         event.preventDefault();
-        fetch(`https://react-http-8f78d-default-rtdb.firebaseio.com/ecommerce/categories/${props.catId}.json`, {
+        fetch(`https://react-http-8f78d-default-rtdb.firebaseio.com/ecommerce/categories/${cate_id}.json`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -24,11 +42,13 @@ const UpdateCategory = (props) =>{
             body: JSON.stringify(Name),
           }).then(()=>{
             setName('');
-            props.updateState(false);
+            //props.updateState(false);
+            navigate(-1)
           })
     }
     return(
         <React.Fragment>
+            <h2>Update Category</h2>
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="id">ID:</label>
@@ -36,7 +56,7 @@ const UpdateCategory = (props) =>{
                     type="text"
                     id="id"
                     name="id"
-                    value={props.catId}
+                    value={cate_id}
                     onChange={handleInputChange}
                     readOnly
                 />

@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SuccessOrder = (props) => {
+    const navigate = useNavigate();
     const closeHandler = () => {
-        props.setSuccessMessege(false);
+        navigate('/')
+        //props.setSuccessMessege(false);
     }
     return(
         <div>
